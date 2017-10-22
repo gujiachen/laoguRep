@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="jquery-easy-ui/material/easyui.css">
+    <link rel="stylesheet" type="text/css" href="jquery-easy-ui/material/icon.css">
+
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.easyui.min.js"></script>
+
+</head>
+<body>
+<h2>Basic DataGrid</h2>
+<p>The DataGrid is created from markup, no JavaScript code needed.</p>
+<div style="margin:20px 0;" id="tableDiv"></div>
+
+查询字符串：<input type="text" id="sqlStr">
+<input onclick="get_data()" value="获取数据" type="button" id="getdata">
+
+<script type="text/javascript" language="javascript">
+
+    var colName=new Array();
+    var tableData=new Array();
+    var k=0;
+    function get_data() {
+        var sqlstring=$('#sqlStr').val()
+        var aj = $.ajax( {
+            url:'testAjaxSerlet',// 跳转到 action
+            data:{
+                sqlStr : sqlstring,
+                testInt : '123456',
+                testDouble : '3678.98',
+                testDate : '2017/4/12'
+            },
+            type:'post',
+            cache:false,
+            dataType:'json',
+            success:function(data,statusText,jqXHR) {
+                alert("draw table");
+                jsonToTable(data);
+                drawTable();
+
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                // view("异常！");
+                alert(textStatus);
+            }
+        });
+    }
+
+    function jsonToTable(data) {
+
+        $.each(data,function(key,value){
+            if(key==0)
+            {
+                colName=value;
+
+            }
+            else
+            {
+                tableData[k]=new Array();
+                tableData[k]=value;
+                k++;
+            }
+        });
+
+    }
+    function drawTable(){
+        var strTbody = ["<table class='easyui-datagrid' title='Basic DataGrid' style='width:700px;height:250px'><thead><tr>"];
+
+        var numofcol=colName.length;
+        for(var j = 0; j < numofcol; j++){
+            strTbody.push("<td>");
+            strTbody.push(colName[j]);
+            strTbody.push("</td>");
+        }
+        strTbody.push("</tr></thead>");
+        strTbody.push("<tbody>");
+
+        for(var i = 0; i < tableData.length; i++){
+            strTbody.push("<tr>");
+
+            for(var j = 0; j < numofcol; j++){
+                strTbody.push("<td>");
+                strTbody.push(tableData[i][j]);
+                strTbody.push("</td>");
+            }
+            strTbody.push("</tr>");
+        }
+
+        strTbody.push("</tbody>");
+
+        strTbody.push("</table>");
+
+        var obj = document.getElementById("tableDiv");
+        obj.innerHTML = strTbody.join("");
+    }
+
+
+</script>
+</body>
+</html>

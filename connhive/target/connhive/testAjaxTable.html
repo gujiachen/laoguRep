@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link  href="jquery-easy-ui/themes/default/easyui.css" rel="stylesheet" type="text/css">
+    <link  href="jquery-easy-ui/themes/icon.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.easyui.min.js"></script>
+
+</head>
+<body>
+<h2>Basic DataGrid</h2>
+<p>The DataGrid is created from markup, no JavaScript code needed.</p>
+
+
+查询字符串：<input type="text" id="sqlStr">
+<input onclick="get_data()" value="获取数据" type="button" id="getdata">
+
+<div style="margin:20px 0;" id="tableDiv">
+</div>
+
+<table id="tablegrid"  title="Basic DataGrid" style="width:700px;height:250px" data-options="singleSelect:true,collapsible:true">
+
+
+</table>
+
+<script type="text/javascript" language="javascript">
+
+    var colName=new Array();
+    var tableData=new Array();
+    var k=0;
+    var datatransOK=0;
+    var timer;
+
+    function get_data() {
+        var sqlstring=$('#sqlStr').val()
+        var aj = $.ajax( {
+            url:'testAjaxSerlet',// 跳转到 action
+            data:{
+                sqlStr : sqlstring,
+                testInt : '123456',
+                testDouble : '3678.98',
+                testDate : '2017/4/12'
+            },
+            type:'post',
+            cache:false,
+            dataType:'json',
+            success:function(data,statusText,jqXHR) {
+                alert("draw table");
+                jsonToTable(data);
+
+
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                // view("异常！");
+                alert(textStatus);
+            }
+        });
+    }
+
+    function jsonToTable(data) {
+
+        $.each(data,function(key,value){
+            if(key==0)
+            {
+                colName=value;
+
+            }
+            else
+            {
+                tableData[k]=new Array();
+                tableData[k]=value;
+                k++;
+            }
+        });
+
+    }
+    function drawTable(){
+        //var strTbody = ["<table class=\"easyui-datagrid\" title=\"Basic DataGrid\" style=\"width:700px;height:250px\" data-options=\"singleSelect:true,collapsible:true\">\n<thead>\n<tr>\n"];
+        var strTbody ="<thead><tr>";
+        var numofcol=colName.length;
+        for(var j = 0; j < numofcol; j++){
+            var strtmp="<th data-options=\"field:\'"+colName[j]+"\',width:80\">";
+            //alert(strtmp);
+            strTbody+=strtmp;
+            strTbody+=colName[j];
+            strTbody+="</th>";
+        }
+        strTbody+=("</tr></thead>");
+        strTbody+=("<tbody>");
+
+
+        for(var i = 0; i < tableData.length; i++){
+            strTbody+=("<tr>");
+
+            for(var j = 0; j < numofcol; j++){
+                strTbody+=("<td>");
+                strTbody+=(tableData[i][j]);
+                strTbody+=("</td>");
+            }
+            strTbody+=("</tr>");
+        }
+
+        strTbody+=("</tbody>");
+
+        //strTbody+=("</table>");
+
+        //var obj = $('#tableDiv');
+        var obj=document.getElementById("tablegrid");
+
+        //alert(strTbody);
+        obj.innerHTML = strTbody;
+        //obj.className="easyui-datagrid";
+        //$('#tablegrid').append(strTbody);
+
+//            dynamicLoading.css("jquery-easy-ui/themes/default/easyui.css");
+//            dynamicLoading.css("jquery-easy-ui/themes/icon.css");
+//            dynamicLoading.js("jquery/jquery.easyui.min.js");
+    }
+
+    function dynCSS(){
+
+        //由于ajax代码在单独的线程中执行，因此，直接在ajax的complete事件中执行表格渲染程序不起作用，表格的渲染代码table.className="easyui-datagrid";
+        //即修改表格类名必须在页面的主线程中执行
+        alert("数据加载中...");//必须有这条语句，用于延迟页面渲染，否则表格的渲染代码会先于ajax执行，造成画出的表格没有数据。
+        if(datatransOK==1){
+            drawTable();
+            var table=document.getElementById("tablegrid");
+
+            table.style.visibility="hidden";
+            table.className="easyui-datagrid";
+            $.parser.parse(("#tablegrid"));
+            //alert(table.className);
+            datatransOK=0;
+            // clearInterval(timer);
+//            alert(table.className);
+//            table.style.backgroundColor="yellow";
+        }
+
+
+
+    }
+
+    //下面的类用于动态加载css文件和js文件
+    var dynamicLoading = {
+        css: function(path){
+            if(!path || path.length === 0){
+                throw new Error('argument "path" is required !');
+            }
+            var head = document.getElementsByTagName('head')[0];
+            var link = document.createElement('link');
+            link.href = path;
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            head.appendChild(link);
+            //alert(link.innerHTML.toString());
+        },
+        js: function(path){
+            if(!path || path.length === 0){
+                throw new Error('argument "path" is required !');
+            }
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement('script');
+            script.src = path;
+            script.type = 'text/javascript';
+            head.appendChild(script);
+        }
+    }
+
+    function getTableData(sqlstring) {
+
+        var aj = $.ajax( {
+            url:'testAjaxSerlet',// 跳转到 action
+            data:{
+                sqlStr : sqlstring,
+                testInt : '123456',
+                testDouble : '3678.98',
+                testDate : '2017/4/12'
+            },
+            type:'post',
+
+            cache:false,
+            dataType:'json',
+            success:function(data,statusText,jqXHR) {
+
+                jsonToTable(data);
+                //drawTable();
+
+            },
+            complete:function(event,jqXHR,options) {
+
+                //drawTable();
+                datatransOK=1;
+
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                // view("异常！");
+                alert(textStatus);
+            }
+        });
+
+       // timer=setInterval(dynCSS,1000);
+        //timer=setTimeout(dynCSS,2000);
+        dynCSS();
+    }
+
+    var sqlstring="select * from cc limit 10";
+    getTableData(sqlstring);
+    //drawTable();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link  href="jquery-easy-ui/themes/default/easyui.css" rel="stylesheet" type="text/css">
+    <link  href="jquery-easy-ui/themes/icon.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.easyui.min.js"></script>
+
+    <script type="text/javascript" src="highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="highcharts/modules/exporting.js"></script>
+    <script type="text/javascript" src="highcharts/themes/dark-unica.js"></script>
+
+</head>
+<body>
+
+<div class="easyui-layout" style="width:1200px;height:600px;">
+    <div data-options="region:'north'" style="height:40px">
+
+    </div>
+    <div data-options="region:'south',split:true" style="height:20px;"></div>
+
+    <div data-options="region:'west'" title="功能列表" style="width:200px;">
+        <div class="easyui-accordion" style="width:200px;height:500px;">
+            <div  title="监测与统计" data-options="iconCls:'icon-module'" style="padding:10px;">
+                <ul id="tree">
+                </ul>
+            </div>
+            <div title="分析与挖掘" data-options="iconCls:'icon-analysis'" style="overflow:auto;padding:10px;">
+                <h3 style="color:#0099FF;">Accordion for jQuery</h3>
+                <p>Accordion is a part of easyui framework for jQuery. It lets you define your accordion component on web page more easily.</p>
+            </div>
+            <div title="建模与评估" data-options="iconCls:'icon-modeling'" style="padding:10px;">
+                <p>The accordion allows you to provide multiple panels and display one or more at a time. Each panel has built-in support for expanding and collapsing. Clicking on a panel header to expand or collapse that panel body. The panel content can be loaded via ajax by specifying a 'href' property. Users can define a panel to be selected. If it is not specified, then the first panel is taken by default.</p>
+            </div>
+            <div title="预报与优化" data-options="iconCls:'icon-predict'" style="padding:10px;">
+                <p>The accordion allows you to provide multiple panels and display one or more at a time. Each panel has built-in support for expanding and collapsing. Clicking on a panel header to expand or collapse that panel body. The panel content can be loaded via ajax by specifying a 'href' property. Users can define a panel to be selected. If it is not specified, then the first panel is taken by default.</p>
+            </div>
+        </div>
+    </div>
+
+    <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+        <div id="tt" class="easyui-tabs" style="width:100%;height:100%;">
+            <div title="Home">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(function(){
+        $('#tree').tree({
+
+            url: '炼钢区功能.json',
+            onClick: function(node){
+                if (node.text == "Java") {
+                    addTab(node.text);
+                }
+                alert('you dbclick '+node.text);
+            },
+            onContextMenu: function(e, node){
+                e.preventDefault();
+                $('#tt2').tree('select', node.target);
+                $('#mm').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            }
+        });
+    });
+    $(function(){
+        $("#treeMenu").tree({
+            onClick:function(node){
+                if (node.text == "apple") {
+                    addTab();
+                }
+            }
+        });
+    });
+
+    function addTab(title){
+
+        if ($('#tt').tabs('exists', title)){
+            $('#tt').tabs('select', title);
+        } else {
+            var content = '<iframe scrolling="auto" frameborder="0"  src="testLayout.html" style="width:100%;height:100%;"></iframe>';
+            $('#tt').tabs('add',{
+                title:title,
+                content:content,
+                closable:true
+            });
+        }
+
+
+    }
+
+</script>
+
+
+</body>
+</html>

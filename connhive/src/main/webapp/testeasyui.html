@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link  href="jquery-easy-ui/themes/default/easyui.css" rel="stylesheet" type="text/css">
+    <link  href="jquery-easy-ui/themes/icon.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery.easyui.min.js"></script>
+
+    <script type="text/javascript" language="javascript">
+        var sqlstring="select 炉号,浇次号,连浇炉数,C from cc limit 100";
+        $('#tablegrid').datagrid({
+            title: '连铸表',
+            iconCls: 'icon-save',
+            width: 800,
+            height: 370,
+            nowrap: true,
+            autoRowHeight: false,
+            striped: true,
+            collapsible: true,
+            url: 'testAjaxSerlet',
+            queryParams:{
+                sqlStr : sqlstring,
+                testInt : '123456',
+                testDouble : '3678.98',
+                testDate : '2017/4/12'
+            },
+
+            columns: [[
+                { field: '炉号', title: '炉号', width: 100 },
+                { field: '浇次号', title: '浇次号', width: 150 },
+                { field: '连浇炉数', title: '连浇炉数', width: 150},
+                {field: 'C', title: 'C', width: 30 }
+            ]]
+
+        });
+
+        //用于汉化页码信息
+        $('#tablegrid').datagrid('getPager').pagination({
+            pageSize: 10,
+            beforePageText: "转到",
+            afterPageText: "共{pages}页",
+            displayMsg: '当前显示从{from}到{to}共{total}记录',
+            onBeforeRefresh: function (pageNumber, pageSize) {
+                $(this).pagination('loading');
+                //alert('pageNumber:' + pageNumber + ',pageSize:' + pageSize);
+                $(this).pagination('loaded');
+            }
+        });
+
+
+        //获取选中行
+        function getSelected() {
+            var selected = $('#tablegrid').datagrid('getSelected');
+            if (selected) {
+                //alert(selected.code + ":" + selected.name + ":" + selected.addr + ":" + selected.col4);
+                return selected.id;
+            }
+        }
+
+        //获取多个选中行
+        function getSelections() {
+            var ids = [];
+            var rows = $('#tablegrid').datagrid('getSelections');
+            for (var i = 0; i < rows.length; i++) {
+                ids.push(rows[i].id);
+            }
+            //alert(ids.join(','));
+            return ids.join(',');
+        }
+
+    </script>
+
+
+</head>
+<body>
+<h2>Test Easy UI</h2>
+<p>The DataGrid is created from markup, no JavaScript code needed.</p>
+
+
+查询字符串：<input type="text" id="sqlStr">
+<input onclick="get_data()" value="获取数据" type="button" id="getdata">
+
+<div style="margin:20px 0;" id="tableDiv">
+    <table id="tablegrid" >
+
+
+    </table>
+</div>
+<table class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
+       data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+    <thead>
+    <tr>
+        <th data-options="field:'itemid',width:80">Item ID</th>
+        <th data-options="field:'productid',width:100">Product</th>
+        <th data-options="field:'listprice',width:80,align:'right'">List Price</th>
+        <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
+        <th data-options="field:'attr1',width:250">Attribute</th>
+        <th data-options="field:'status',width:60,align:'center'">Status</th>
+    </tr>
+    </thead>
+</table>
+<script type="text/javascript" language="javascript">
+    var sqlstring="select * from cc limit 2";
+    $('#tablegrid').datagrid({
+        title: '连铸表',
+        iconCls: 'icon-save',
+        width: 800,
+        height: 370,
+        nowrap: true,
+        autoRowHeight: false,
+        striped: true,
+        collapsible: true,
+        url: 'testEasyUI',
+        method:'post',
+        queryParams:{
+            sqlStr : sqlstring,
+            testInt : '123456',
+            testDouble : '3678.98',
+            testDate : '2017/4/12'
+        },
+
+        columns: [[
+            { field: '炉号', title: '炉号', width: 100 },
+            { field: '浇次号', title: '浇次号', width: 150 },
+            { field: '连浇炉数', title: '连浇炉数', width: 150},
+            { field: '浸入水口寿命', title: '浸入水口寿命', width: 150},
+            { field: 'Mn', title: 'Mn', width: 150},
+            { field: 'Si', title: 'Si', width: 150},
+            {field: 'C', title: 'C', width: 30 }
+        ]]
+
+    });
+
+    //用于汉化页码信息
+    $('#tablegrid').datagrid('getPager').pagination({
+        pageSize: 10,
+        beforePageText: "转到",
+        afterPageText: "共{pages}页",
+        displayMsg: '当前显示从{from}到{to}共{total}记录',
+        onBeforeRefresh: function (pageNumber, pageSize) {
+            $(this).pagination('loading');
+            //alert('pageNumber:' + pageNumber + ',pageSize:' + pageSize);
+            $(this).pagination('loaded');
+        }
+    });
+
+
+    //获取选中行
+    function getSelected() {
+        var selected = $('#tablegrid').datagrid('getSelected');
+        if (selected) {
+            //alert(selected.code + ":" + selected.name + ":" + selected.addr + ":" + selected.col4);
+            return selected.id;
+        }
+    }
+
+    //获取多个选中行
+    function getSelections() {
+        var ids = [];
+        var rows = $('#tablegrid').datagrid('getSelections');
+        for (var i = 0; i < rows.length; i++) {
+            ids.push(rows[i].id);
+        }
+        //alert(ids.join(','));
+        return ids.join(',');
+    }
+
+</script>
+
+</body>
+</html>

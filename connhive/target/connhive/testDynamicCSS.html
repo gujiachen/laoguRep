@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css"> 
+.txt { 
+font-size: 30px; font-weight: bold; color: red; 
+} 
+</style> 
+	<link  href="jquery-easy-ui/themes/default/easyui.css" rel="stylesheet" type="text/css">
+	<link  href="jquery-easy-ui/themes/icon.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery/jquery.easyui.min.js"></script>
+
+</head>
+<body>
+<div id="tt">欢迎光临！</div> 
+<p><button onclick="setClass()">更改样式</button></p> 
+
+<table id="tablegrid"   title="Basic DataGrid" style="width:700px;height:250px" data-options="singleSelect:true,collapsible:true">
+
+
+</table>
+
+<script type="text/javascript"> 
+function setClass() 
+{ 
+document.getElementById( "tt" ).className = "txt"; 
+
+} 
+var strtmp="<thead><tr><th data-options=\"field:\'浇次号\',width:80\">浇次号</th><th data-options=\"field:\'连浇炉数\',width:80\">连浇炉数</th></tr><tbody><tr><td>1306</td><td>3</td></tr><tr><td>1306</td><td>3</td></tr></tbody></thead>";
+//alert(strtmp);
+document.getElementById( "tt" ).className = "txt"; 
+var tablename=document.getElementById( "tablegrid" );
+tablename.innerHTML=strtmp;
+//alert(tablename.id);
+tablename.className = "easyui-datagrid"; 
+//document.getElementById( "tablegrid" ).style.backgroundColor="yellow";
+</script> 
+</body>

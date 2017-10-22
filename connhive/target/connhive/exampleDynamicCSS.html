@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<style type="text/css">
+table { border-collapse:collapse; margin:0 auto;}
+table th {text-align:center; background:#E31445; height:30px; color:#fff; font-size:14px;}
+table tr td {border:1px solid #ccc; padding:0 5px; text-align:center; min-height:30px; font-size:14px;}
+table tr td.small { font-size:small; text-align:center;}
+table tr:hover {background-color:#f1f1f1}
+.tdColor {background-color:#f1f1f1; }
+table tr td {padding:5px;}
+</style>
+<script type="text/javascript">
+function addClass(id,className){
+	var element  = document.getElementById(id);
+	if(element.className == ""){
+		element.className = className;	
+	}else{
+		element.className += " "+className;	
+	}
+}
+function clearClass(id){
+	var element = document.getElementById(id);
+	if(element.className != ""){
+		element.className = "";	
+	}
+}
+</script><table border="1" cellpadding="0" cellspacing="0" style="width: 710px">
+<tbody>
+	<tr>
+	<th style="width: 120px; ">
+		专业</th>
+	<th>
+		班型</th>
+	<th>
+		学习时间</th>
+	<th>
+		收费标准</th>
+	</tr>
+	<tr onmouseout="clearClass('biaoyan')" onmouseover="addClass('biaoyan','tdColor')">
+	<td id="biaoyan" rowspan="3">表演</td>
+	<td>短期班</td>
+	<td class="small">一个月（每月5号开学）</td>
+	<td>6000元</td>
+	</tr>
+	<tr onmouseout="clearClass('biaoyan')" onmouseover="addClass('biaoyan','tdColor')">
+	<td>系统班</td>
+	<td class="small">7月15日&mdash;次年2月15日</td>
+	<td>38000元</td>
+	</tr>
+	<tr onmouseout="clearClass('biaoyan')" onmouseover="addClass('biaoyan','tdColor')">
+	<td>精品班</td>
+	<td class="small">10月20日&mdash;次年1月20日</td>
+	<td>32000元</td>
+	</tr>
+	<tr onmouseout="clearClass('biandao')" onmouseover="addClass('biandao','tdColor')">
+	<td id="biandao" rowspan="3">编导</td>
+	<td>短期班</td>
+	<td class="small">一个月（每月1号开学）</td>
+	<td>4500元</td>
+	</tr>
+	<tr onmouseout="clearClass('biandao')" onmouseover="addClass('biandao','tdColor')">
+	<td>基础班</td>
+	<td class="small">9月1日&mdash;11月30日（三个月）</td>
+	<td>12000元</td>
+	</tr>
+	<tr onmouseout="clearClass('biandao')" onmouseover="addClass('biandao','tdColor')">
+	<td>强化班</td>
+	<td class="small">12月1日&mdash;次年2月1日（两个月）</td>
+	<td>13800元</td>
+	</tr>
+	<tr onmouseout="clearClass('boyin')" onmouseover="addClass('boyin','tdColor')">
+	<td id="boyin" rowspan="3">播音主持</td>
+	<td>短期班</td>
+	<td class="small">一个月（每月15号开学）</td>
+	<td>5500元</td>
+	</tr>
+	<tr onmouseout="clearClass('boyin')" onmouseover="addClass('boyin','tdColor')">
+	<td>系统班</td>
+	<td class="small">7月15日&mdash;次年3月份（七个月）</td>
+	<td>32000元</td>
+	</tr>
+	<tr onmouseout="clearClass('boyin')" onmouseover="addClass('boyin','tdColor')">
+	<td>精品班</td>
+	<td class="small">10月20日&mdash;次年1月20日（三个月）</td>
+	<td>19500元</td>
+	</tr>
+	<tr onmouseout="clearClass('yinyue')" onmouseover="addClass('yinyue','tdColor')">
+	<td id="yinyue" rowspan="2">音乐</td>
+	<td>短期班</td>
+	<td class="small">一个月（每月15号开学）</td>
+	<td>6000元</td>
+	</tr>
+	<tr onmouseout="clearClass('yinyue')" onmouseover="addClass('yinyue','tdColor')">
+	<td>系统班</td>
+	<td class="small">7月15日&mdash;次年3月份（七个月）</td>
+	<td>38000元</td>
+	</tr>
+	<tr onmouseout="clearClass('wudao')" onmouseover="addClass('wudao','tdColor')">
+	<td id="wudao" rowspan="2">舞蹈</td>
+	<td>短期班</td>
+	<td class="small">一个月（每月15日开学）</td>
+	<td>5500元</td>
+	</tr>
+	<tr onmouseout="clearClass('wudao')" onmouseover="addClass('wudao','tdColor')">
+	<td>系统班</td>
+	<td class="small">7月15日&mdash;次年2月15日（七个月）</td>
+	<td>35000元</td>
+	</tr>
+	<tr onmouseout="clearClass('meishu')" onmouseover="addClass('meishu','tdColor')">
+	<td id="meishu" rowspan="2">美术</td>
+	<td>短期班</td>
+	<td class="small">一个月（每月15号开学）</td>
+	<td>3800元</td>
+	</tr>
+	<tr onmouseout="clearClass('meishu')" onmouseover="addClass('meishu','tdColor')">
+	<td>系统班</td>
+	<td class="small">7月15日&mdash;次年3月份（七个月）</td>
+	<td>23800元</td>
+	</tr>
+</tbody>
+</table>
+
+</body>
+</html>

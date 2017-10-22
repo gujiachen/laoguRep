@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="connhive:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="connhive.war">
+      <element id="artifact" artifact-name="connhive:war exploded" />
+    </root>
+  </artifact>
+</component>
